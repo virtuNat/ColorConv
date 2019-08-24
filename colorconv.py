@@ -238,3 +238,7 @@ class Color(object):
 
     def __invert__(self):
         return type(self)(*map(invert, zip(self.color)))
+
+def convert(fmt1: str, fmt2: str, a: float, b: float, c: float, d: Optional[float]=None):
+    """Alias function to do the conversion without class syntax."""
+    return Color.from_format(fmt1, a, b, c, d).to_format(fmt2)
