@@ -206,26 +206,26 @@ class Color(object):
     def __add__(self, other):
         if not isinstance(other, type(self)):
             return NotImplemented
-        return type(self)(
-            *starmap(lambda x: min(max(x + y, 0), 1)),
+        return type(self)(*starmap(
+            lambda x, y: min(max(x + y, 0), 1),
             *zip(self.color, other.color),
-            )
+            ))
 
     def __sub__(self, other):
         if not isinstance(other, type(self)):
             return NotImplemented
-        return type(self)(
-            *starmap(lambda x: min(max(x - y, 0), 1)),
+        return type(self)(*starmap(
+            lambda x, y: min(max(x - y, 0), 1),
             *zip(self.color, other.color),
-            )
+            ))
 
     def __mul__(self, other):
         if not isinstance(other, type(self)):
             return NotImplemented
-        return type(self)(
-            *starmap(lambda x: min(max(1-(1-x)*(1-y), 0), 1)),
+        return type(self)(*starmap(
+            lambda x, y: min(max(1-(1-x)*(1-y), 0), 1),
             *zip(self.color, other.color),
-            )
+            ))
 
     def _boolop(self, op, other):
         if not isinstance(other, type(self)):
@@ -234,7 +234,7 @@ class Color(object):
 
     __or__ = partialmethod(_boolop, or_)
     __and__ = partialmethod(_boolop, and_)
-    __xor__ = partialmethod(_boolop, xor_)
+    __xor__ = partialmethod(_boolop, xor)
 
     def __invert__(self):
         return type(self)(*map(invert, zip(self.color)))
